@@ -65,94 +65,111 @@ The user should be able to see the list of tasks, add new ones, delete existing 
     <hr />
 
     <input type="color" placeholder="Color" id="colorPicker" />
-    <input
-      type="button"
-      value="Change task background"
-      onclick="changeTaskBackgroundColor()"
-    />
+    <input type="button" value="Change task background" />
 
     <hr />
 
     <input type="button" value="Sort" onclick="bubbleSort()" />
 
     <script>
-            /* EXERCISE 5:
+      /* EXERCISE 5:
                       Add a new task to the list.
                       Suggestion:
                       - Use document.getElementById to get the UL item and the input text
                       - Use the document.createElement to create the new List Item
                       - Append the LI child to the UL
                   */
-            const ulItem = document.getElementById("myTaskList");
-            const inputField = document.getElementById("newTask");
+      const ulItem = document.getElementById("myTaskList");
+      const inputField = document.getElementById("newTask");
 
-            const addNewTask = function () {
-              const createElement = document.createElement("li");
-              createElement.innerText = inputField.value;
-              myTaskList.appendChild(createElement);
-            };
+      const addNewTask = function () {
+        const li = document.createElement("li");
+        li.innerText = inputField.value;
 
-            /* EXERCISE 6:
+        myTaskList.appendChild(li);
+        li.addEventListener("click", (event) => {
+          li.remove();
+        });
+      };
+
+      /* EXERCISE 6:
                       Create a function "removeLast" which removes the last item from the task list
                   */
-            const removeLast = function () {
-              const list = document.getElementById("myTaskList");
-              list.removeChild(list.lastElementChild);
-            };
+      const removeLast = function () {
+        const list = document.getElementById("myTaskList");
+        list.removeChild(list.lastElementChild);
+      };
 
-            /* EXERCISE 7:
+      /* EXERCISE 7:
                       Create a function "removeFirst" which removes the first item from the task list
                   */
-            const removeFirst = function () {
-              const list = document.getElementById("myTaskList");
-              list.removeChild(list.firstElementChild);
-            };
+      const removeFirst = function () {
+        const list = document.getElementById("myTaskList");
+        list.removeChild(list.firstElementChild);
+      };
 
-            /* EXERCISE 8:
+      /* EXERCISE 8:
                      Create a function "getTasksAsArray" which returns, and prints to the console an array containing the tasks as strings
                   */
-            const list = document
-              .getElementsByTagName("ul")[0]
-              .getElementsByTagName("li");
-            const theArray = [];
-            const getTasksAsArray = function () {
-              for (let i = 0; i < list.length; i++) {
-                const arrValue = list[i].innerText;
-                theArray.push(arrValue);
-              }
-              console.log(theArray);
-            };
+      const list = document
+        .getElementsByTagName("ul")[0]
+        .getElementsByTagName("li");
+      const theArray = [];
+      const getTasksAsArray = function () {
+        for (let i = 0; i < list.length; i++) {
+          const arrValue = list[i].innerText;
+          theArray.push(arrValue);
+        }
+        console.log(theArray);
+      };
 
-            /* EXERCISE 9:
+      /* EXERCISE 9:
                      Create a function "changeTaskBackgroundColor" and attach it to the "Change task background" button via JavaScript (not via html attribute)
                      Take the color from the color picker ad apply it as background to every list item
             */
 
-            const changeTaskBackgroundColor = function () {
-              const inputColor = document.getElementById("colorPicker");
-              ulItem.style.backgroundColor = inputColor.value;
-            };
+      const changeTaskBackgroundColor = function () {
+        ul = document.querySelectorAll("li");
+        let color = document.getElementById("colorPicker");
+        for (i = 0; i < ul.length; i++) {
+          ul[i].style.backgroundColor = color.value;
+        }
+      };
+      let button = document.getElementsByTagName("input")[3];
+      button.addEventListener("click", changeTaskBackgroundColor);
 
-            /* ### EXTRA ### */
+      /* ### EXTRA ### */
 
-            /* EXERCISE 10:
+      /* EXERCISE 10:
                       Attach an eventListener to each new task you create. When the task receives the click it should be removed (only the clicked task should disappear)
             */
+      const li = document.getElementsByTagName("li");
 
-            document.getElementById("myTaskList").addEventListener("click", myFunction(e) {
-                if(e.target && e.target.nodeName == "LI") {
-          console.log("List item ", e.target.id.replace("post-"), " was clicked!");
-         }
-      });
+      const myFunction = function () {
+        li.remove();
+      };
 
-
-            /* EXERCISE 11:
+      /* EXERCISE 11:
                      Create a function "bubbleSort()" which sorts the task list alphabetically using the bubble sort algorithm
             */
 
-            /* #### Suggestion:
+      /* #### Suggestion:
              - Break the code into many function for semplicity
              - Reuse the functions previously created */
+      const bubbleSort = function () {
+        let theArray = getTasksAsArray();
+        for (let i = 0; i < theArray.length; i++)
+          for (let j = 0; j < theArray.length - i - 1; j++) {
+            if (theArray[j] > theArray[j + 1]) {
+              let intermediate = theArray[j];
+              theArray[j] = theArray[j + 1];
+              theArray[j + 1] = intermediate;
+            }
+          }
+        for (let i = 0; i < list.length; i++) {
+          liList[i].innerText = theArray[i];
+        }
+      };
     </script>
   </body>
 </html>
